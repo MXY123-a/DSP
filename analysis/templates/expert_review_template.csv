@@ -1,0 +1,13 @@
+ReviewerCode,Pair,Domain,RelevanceA,ClarityA,DistractorA,RelevanceB,ClarityB,DistractorB,Equivalence,Comments
+,1,Signals,,,,,,,,
+,2,Signals,,,,,,,,
+,3,Sampling,,,,,,,,
+,4,Sampling,,,,,,,,
+,5,Sampling,,,,,,,,
+,6,Convolution,,,,,,,,
+,7,Convolution,,,,,,,,
+,8,DFT,,,,,,,,
+,9,DFT,,,,,,,,
+,10,DFT,,,,,,,,
+,11,FIR,,,,,,,,
+,12,FIR,,,,,,,,

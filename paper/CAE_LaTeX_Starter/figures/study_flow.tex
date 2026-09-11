@@ -1,0 +1,32 @@
+% Publication-ready vector figure: quasi-experimental study flow
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+  font=\small,
+  node distance=6mm,
+  box/.style={draw, rounded corners=2pt, align=center, minimum height=8mm, text width=118mm, inner sep=4pt},
+  branch/.style={draw, rounded corners=2pt, align=center, minimum height=16mm, text width=58mm, inner sep=4pt},
+  arrow/.style={-{Latex[length=2.2mm]}, line width=0.7pt}
+]
+
+\node[box] (participants) {Undergraduate DSP course participants\\Same regular instruction and course content};
+\node[box, below=of participants] (pre) {Form A pre-test\\12-item DSP concept assessment};
+
+\node[branch, below=10mm of pre, xshift=-33mm] (exp) {\textbf{Experimental condition}\\Five DSP-Lab after-class modules\\Interactive parameter manipulation\\Immediate dynamic visualization};
+\node[branch, below=10mm of pre, xshift=33mm] (ctl) {\textbf{Control condition}\\Five topic-matched conventional reviews\\Static worked examples\\Written practice and comparison};
+
+\coordinate (branchmid) at ($(exp.south)!0.5!(ctl.south)$);
+\node[box, below=12mm of branchmid] (post) {Form B post-test\\Parallel 12-item DSP concept assessment};
+\node[box, below=of post] (analysis) {Primary analysis\\Post-test score adjusted for pre-test score};
+
+\draw[arrow] (participants) -- (pre);
+\draw[arrow] (pre.south) -- ++(0,-4mm) -| (exp.north);
+\draw[arrow] (pre.south) -- ++(0,-4mm) -| (ctl.north);
+\draw[arrow] (exp.south) -- ++(0,-5mm) -| (post.north);
+\draw[arrow] (ctl.south) -- ++(0,-5mm) -| (post.north);
+\draw[arrow] (post) -- (analysis);
+
+\end{tikzpicture}
+\caption{Quasi-experimental study flow. Both groups receive the same regular DSP instruction; the planned contrast is the form of after-class learning support.}
+\label{fig:study-flow}
+\end{figure}

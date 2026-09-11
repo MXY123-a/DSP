@@ -1,0 +1,45 @@
+name: Paper Build
+
+on:
+  push:
+    paths:
+      - 'paper/CAE_LaTeX_Starter/**'
+      - '.github/workflows/paper-build.yml'
+  workflow_dispatch:
+
+jobs:
+  build-paper:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Compile anonymous manuscript
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main_anonymous.tex
+          working_directory: paper/CAE_LaTeX_Starter
+          latexmk_use_xelatex: false
+
+      - name: Compile title page
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: title_page.tex
+          working_directory: paper/CAE_LaTeX_Starter
+          latexmk_use_xelatex: false
+
+      - name: Compile supplementary material
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: supplementary_material.tex
+          working_directory: paper/CAE_LaTeX_Starter
+          latexmk_use_xelatex: false
+
+      - name: Upload manuscript PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: cae-manuscript-pdfs
+          path: |
+            paper/CAE_LaTeX_Starter/main_anonymous.pdf
+            paper/CAE_LaTeX_Starter/title_page.pdf
+            paper/CAE_LaTeX_Starter/supplementary_material.pdf

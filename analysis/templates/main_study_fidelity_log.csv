@@ -1,0 +1,8 @@
+StudyWeek,SessionDate,Topic,ExperimentalActivity,ControlActivity,SameRegularInstruction,SameCoreHomework,ExperimentalAssigned,ControlAssigned,ExperimentalTargetMinutes,ControlTargetMinutes,ExperimentalTechnicalIssue,ControlDeliveryIssue,DifferentialInstructorSupport,KnownCrossGroupContamination,ScheduleDeviation,ProtocolDeviation,ActionTaken,MeaningfulForInterpretation,ResearcherInitials
+Pre-test,,,,,Yes,Yes,,,,,,,,,,,,
+Week1,,Discrete-time signals,LAB01_SIGNALS,LAB01_SIGNALS_REVIEW.md,Yes,Yes,Yes,Yes,15-25,15-25,,,,,,,,
+Week2,,Sampling and aliasing,LAB02_SAMPLING,LAB02_SAMPLING_REVIEW.md,Yes,Yes,Yes,Yes,20-30,20-30,,,,,,,,
+Week3,,Convolution,LAB03_CONVOLUTION,LAB03_CONVOLUTION_REVIEW.md,Yes,Yes,Yes,Yes,20-30,20-30,,,,,,,,
+Week4,,DFT and spectrum,LAB04_DFT,LAB04_DFT_REVIEW.md,Yes,Yes,Yes,Yes,20-30,20-30,,,,,,,,
+Week5,,FIR low-pass filtering,LAB05_FIR,LAB05_FIR_REVIEW.md,Yes,Yes,Yes,Yes,20-30,20-30,,,,,,,,
+Post-test,,,,,Yes,Yes,,,,,,,,,,,,
