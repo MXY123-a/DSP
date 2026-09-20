@@ -2,20 +2,17 @@ package com.zichun2000.dsplab
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.WindowInsets
-import androidx.compose.foundation.layout.WindowInsetsSides
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
-import androidx.compose.foundation.layout.only
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.safeDrawing
-import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -38,7 +35,6 @@ import androidx.compose.material3.Slider
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
@@ -47,15 +43,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.core.view.WindowCompat
 import com.zichun2000.dsplab.dsp.SignalParameters
 import com.zichun2000.dsplab.dsp.SignalType
 import com.zichun2000.dsplab.dsp.generateDiscreteSignal
@@ -72,7 +61,13 @@ import kotlin.math.PI
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.getInsetsController(window, window.decorView).isAppearanceLightStatusBars = false
+        // The app uses a light theme; keep status icons visible above the toolbar.
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.light(
+                android.graphics.Color.TRANSPARENT,
+                android.graphics.Color.DKGRAY
+            )
+        )
         setContent { MaterialTheme { Surface(Modifier.fillMaxSize()) { DspLabApp() } } }
     }
 }
@@ -94,26 +89,25 @@ private fun DspLabApp() {
     val showLab = selectedLab != null
     Scaffold(
         topBar = {
-            Column {
-                UniversityBrandHeader()
-                // The brand header already handles the top system inset.
-                val toolbarInsets = TopAppBarDefaults.windowInsets.only(WindowInsetsSides.Horizontal)
-                if (showLab) {
-                    TopAppBar(
-                        title = { Text("Lab ${selectedLab!!.number} · ${selectedLab!!.title}") },
-                        navigationIcon = {
-                            IconButton(onClick = { selectedLab = null }) {
-                                Icon(Icons.Default.ArrowBack, "Back")
-                            }
-                        },
-                        windowInsets = toolbarInsets
-                    )
-                } else {
-                    TopAppBar(
-                        title = { Text("DSP Learning Platform") },
-                        windowInsets = toolbarInsets
-                    )
-                }
+            // Default TopAppBar insets now handle the status bar directly.
+            if (showLab) {
+                TopAppBar(
+                    title = { Text("Lab ${selectedLab!!.number} · ${selectedLab!!.title}") },
+                    navigationIcon = {
+                        IconButton(onClick = { selectedLab = null }) {
+                            Icon(Icons.Default.ArrowBack, "Back")
+                        }
+                    }
+                )
+            } else {
+                TopAppBar(
+                    title = {
+                        Text(
+                            text = stringResource(R.string.app_title),
+                            maxLines = 2
+                        )
+                    }
+                )
             }
         },
         bottomBar = { if (!showLab) NavigationBar(Modifier.navigationBarsPadding()) {
@@ -137,32 +131,6 @@ private fun DspLabApp() {
                 Section.RESEARCH -> ResearchDashboard()
             }
         }
-    }
-}
-
-private val UniversityBrandFont = FontFamily(Font(R.font.russo_one))
-
-@Composable
-private fun UniversityBrandHeader() {
-    Surface(modifier = Modifier.fillMaxWidth(), color = Color(0xFF650F14)) {
-        Text(
-            text = stringResource(R.string.university_name),
-            modifier = Modifier
-                .fillMaxWidth()
-                .windowInsetsPadding(
-                    WindowInsets.safeDrawing.only(WindowInsetsSides.Horizontal + WindowInsetsSides.Top)
-                )
-                .padding(horizontal = 16.dp, vertical = 10.dp),
-            color = Color.White,
-            style = MaterialTheme.typography.labelLarge.copy(
-                fontFamily = UniversityBrandFont,
-                fontWeight = FontWeight.Normal,
-                fontStyle = FontStyle.Italic,
-                fontSize = 13.sp,
-                lineHeight = 19.sp,
-                letterSpacing = 0.25.sp
-            )
-        )
     }
 }
 
